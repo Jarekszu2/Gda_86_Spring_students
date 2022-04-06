@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Student List</title>
+</head>
+<body>
+<div th:replace="fragments :: navigator"></div>
+<h1>Student List</h1>
+
+<table>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Surname</th>
+        <th>Age</th>
+        <th>Alive</th>
+        <th></th><!--Pusta na guziki, na potem-->
+    </tr>
+    <tr th:each="student: ${students}">
+        <td th:text="${student.getId()}"></td>
+        <td th:text="${student.getName()}"></td>
+        <td th:text="${student.getSurname()}"></td>
+        <td th:text="${student.getAge()}"></td>
+        <td th:text="${student.isAlive()}"></td>
+        <td>
+            <a th:href="@{'/student/edit/' + ${student.getId()}}">Edytuj</a>
+            <a th:href="@{'/student/delete/' + ${student.getId()}}">Usun</a>
+            <!--Wasze zadanie to stworzyć GET MAPPING na adresie /student/delete/{id} który usuwa studenta,
+                po czym przekierować użytkownika na adres /studebt/list. Jeśli nie udało sie odnaleźć studenta również
+                przekierowujemy na /student/list.-->
+            <!--Napisz usuwanie studenta wykorzystując request param (zamiast path variable)-->
+            <!--Napisz edycję studenta wykorzystując request param (zamiast path variable-->
+            <a th:href="@{'/grade/add/' + ${student.getId()}}">Dodaj ocene</a>
+            <a th:href="@{'/student/grades/' + ${student.getId()}}">Listuj oceny</a>
+            <br/>
+            <a th:href="@{'/student/delete?studentId=' + ${student.getId()}}">Usun byParam</a>
+            <a th:href="@{'/student/edit?studentId=' + ${student.getId()}}">Edit byParam</a>
+        </td>
+
+    </tr>
+</table>
+</body>
+</html>

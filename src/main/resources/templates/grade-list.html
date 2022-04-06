@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:HH="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista Grade</title>
+</head>
+<body>
+<div th:replace="fragments :: navigator"></div>
+<h1>Grade list</h1>
+<table>
+    <tr>
+        <th>Id</th>
+        <th>Grade Subject</th>
+        <th>Date added</th>
+        <th>Value</th>
+        <!--<th>Alive</th>-->
+        <th></th><!--Pusta na guziki, na potem-->
+    </tr>
+    <tr th:each="grade: ${gradeList}">
+        <td th:text="${grade.getId()}"></td>
+        <td th:text="${grade.getSubject()}"></td>
+        <td th:text="${grade.getDateAdded()}"></td>
+        <td th:text="${#temporals.format(grade.getDateAdded(), 'dd-MM-yyyy HH:mm')}"></td>
+        <td th:text="${grade.getValue()}"></td>
+        <!--<td th:text="${student.isgradeAlive()}"></td>-->
+        <td>
+            <a th:href="@{'/grade/edit/' + ${grade.getId()}}">Edytuj byPathVar</a>
+            <a th:href="@{'/grade/delete/' + ${grade.getId()}}">Usun byPathVar</a>
+            <!--Wasze zadanie to stworzyć GET MAPPING na adresie /student/delete/{id} który usuwa studenta,
+                po czym przekierować użytkownika na adres /student/list. Jeśli nie udało sie odnaleźć studenta również
+                przekierowujemy na /student/list.-->
+            <!--Napisz usuwanie studenta wykorzystując request param (zamiast path variable)-->
+            <!--Napisz edycję studenta wykorzystując request param (zamiast path variable-->
+            <br/>
+            <a th:href="@{'/grade/delete?gId=' + ${grade.getId()}}">Usun byParam</a>
+            <a th:href="@{'/grade/edit?edited_gId=' + ${grade.getId()}}">Edit byParam</a>
+        </td>
+
+    </tr>
+</table>
+</body>
+</html>
